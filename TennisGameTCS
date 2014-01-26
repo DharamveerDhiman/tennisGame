@@ -11,10 +11,37 @@ describe('deuce', function(){
     });
 });
 
+describe('advantage', function(){
+     it('at least three points have been scored by each player and has one more point than his opponent ',function(){
+ 		getAdvantage(2,3).should.equal("Advantage player1");
+ 		getAdvantage(5,4).should.equal("Advantage player1");
+ 		getAdvantage(3,4).should.equal("Advantage player2");
+ 		getAdvantage(14,15).should.equal("Advantage player2");
+ 		getAdvantage(3,5).should.equal("none");
+ 	});
+});
+
 var isDeuce = function(player1_score, player2_score){
     var isScoreEqual = _.isEqual(player1_score, player2_score);
     return  isScoreEqual && player1_score > 2 ;
 }
+
+ var getAdvantage = function(player1_score, player2_score){
+
+    var scoreDiff = player1_score - player2_score;
+    console.log(scoreDiff);
+    if (scoreDiff == 1 && player2_score > 2)
+    {
+        score = "Advantage player1";
+    }
+    else if (scoreDiff == -1 && player1_score > 2)
+    {
+        score = "Advantage player2";
+    }
+    else
+        score = "none";
+     return  score;
+ }
 
 
 
