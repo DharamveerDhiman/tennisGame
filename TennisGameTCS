@@ -1,0 +1,60 @@
+var should = require("should");
+var _ = require('lodash');
+
+
+describe('tennisGame', function(){
+    it('scores from zero to three points are described as "love", "fifteen", "thirty", and "forty" respectively.',function(){
+		gameScore([0,0]).should.equal("Love-All");
+		gameScore([1,1]).should.equal("Fifteen-All");
+		gameScore([2,2]).should.equal("Thirty-All");
+		gameScore([1,0]).should.equal("Fifteen-Love");
+		gameScore([0,1]).should.equal("Love-Fifteen");
+		gameScore([2,0]).should.equal("Thirty-Love");
+		gameScore([0,2]).should.equal("Love-Thirty");
+		gameScore([3,0]).should.equal("Forty-Love");
+		gameScore([0,3]).should.equal("Love-Forty");
+		gameScore([2,1]).should.equal("Thirty-Fifteen");
+		gameScore([1,2]).should.equal("Fifteen-Thirty");
+		gameScore([3,1]).should.equal("Forty-Fifteen");
+		gameScore([1,3]).should.equal("Fifteen-Forty");
+		gameScore([2,3]).should.equal("Forty-Thirty");
+		gameScore([3,2]).should.equal("Thirty-Forty");
+
+	});
+});
+
+describe('deuce', function(){
+    it('at least three points has been scored by each player and scores are equal',function(){
+		isDeuce([1,1]).should.equal(false);
+		isDeuce([2,2]).should.equal(false);
+		isDeuce([3,3]).should.equal(true);
+		isDeuce([4,4]).should.equal(true);
+		isDeuce([4,5]).should.equal(false);
+	});
+});
+
+describe('advantage', function(){
+    it('at least three points have been scored by each player and has one more point than his opponent ',function(){
+		isAdvantage([2,3]).should.equal(false);
+		isAdvantage([3,4]).should.equal(true);
+		isAdvantage([5,4]).should.equal(true);
+		isAdvantage([3,5]).should.equal(false);
+		isAdvantage([14,15]).should.equal(true);
+
+	});
+});
+
+describe('win', function(){
+    it('at least four points in total and winning player should have at least two points more than the opponent',function(){
+		isWin([2,4]).should.equal(true);
+		isWin([3,5]).should.equal(true);
+		isWin([1,3]).should.equal(false);
+		isWin([14,16]).should.equal(true);
+		isWin([16,16]).should.equal(false);
+
+	});
+});
+
+
+
+
